@@ -1,23 +1,29 @@
 import "./App.css";
+import MainPage from "./components/MainPage";
+import WinScreen from "./components/WinScreen"
 import CanadaMap from "./assets/CanadaMap.jpg";
 import React, { useState } from 'react';
 
+
+
 function App() {
-  const [hints, setHints] = useState(3);
+  const [hintsRemaining, setHintsRemaining] = useState(3);
+  const [playerWin, setPlayerWin] = useState(false);
+
+  const decrementHints = () => {
+    setHintsRemaining(Math.max(hintsRemaining - 1, 0))
+  }
+
+  const setWin = () => {
+    setPlayerWin(true);
+  }
 
   return (
     <div className="App">
-      <div className="Title">
-        <h1 className="Title">Culturedle</h1>
-      </div>
-      <div className="Hints">
-        <img className="img" src={CanadaMap} alt="CanadaMap" />
-        <h1> Hints remaining: {hints} </h1>
-      </div>
-      <span>
-        <input type="text" className="input-field"/> <button className="btn" onClick={() => setHints(Math.max(hints-1, 0))}> Test </button>
-      </span>
+      <h1 className="Title">Culturedle</h1>
+      { playerWin ? <WinScreen hintsRemaining={hintsRemaining}/> : <MainPage hintsRemaining={hintsRemaining} decrementHints={decrementHints} setPlayerWin={setPlayerWin} />}
     </div>
+
   );
 }
 
