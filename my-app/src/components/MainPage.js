@@ -7,6 +7,7 @@ const WIN_STRING = "CANADA";
 
 function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
   const [input, setInput] = useState("");
+  const [imagesRevealed, setImagesRevealed] = useState(1);
 
   const isEnter = (event) => {
     if (event.key === "Enter") {
@@ -20,8 +21,11 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
       setPlayerWin(true);
     } else {
       decrementHints();
+      setImagesRevealed((prev) => Math.min(prev + 1, images.length));
+      setCurrentIndex(() => Math.min(imagesRevealed - 1, images.length));
     }
   };
+
   const images = [CanadaRCMP, CanadaClue, CanadaMap];
   const [currentIndex, setCurrentIndex] = useState(0);
   const handlePreviousImage = () => {
@@ -40,7 +44,7 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
     <div className="MainPage">
       <div className="Hints">
         <div className="carousel-container">
-          <button className="arrow left-arrow" onClick={handlePreviousImage}>
+          <button className="arrow left-arrow" onClick={handlePreviousImage} disabled={imagesRevealed <= 1}>
             &lt; {/* Left arrow symbol */}
           </button>
           <img
@@ -48,7 +52,7 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
             src={images[currentIndex]}
             alt={`Slide ${currentIndex + 1}`}
           />
-          <button className="arrow right-arrow" onClick={handleNextImage}>
+          <button className="arrow right-arrow" onClick={handleNextImage} disabled={currentIndex + 1 === imagesRevealed}>
             &gt; {/* Right arrow symbol */}
           </button>
         </div>
