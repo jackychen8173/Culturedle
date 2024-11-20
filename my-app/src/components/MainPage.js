@@ -1,5 +1,6 @@
 import CanadaMap from "../assets/CanadaMap.jpg";
-import CanadaClue from "../assets/CanadaClue.jpg";
+import CanadaClue from "../assets/CanadaClue.jpeg";
+import CanadaRCMP from "../assets/CanadaRCMP.jpg";
 import React, { useState } from "react";
 
 const WIN_STRING = "CANADA";
@@ -21,8 +22,8 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
       decrementHints();
     }
   };
-  const images = [CanadaMap, CanadaClue];
-  const [currentIndex, setCurrentIndex] = useState[0];
+  const images = [CanadaRCMP, CanadaClue, CanadaMap];
+  const [currentIndex, setCurrentIndex] = useState(0);
   const handlePreviousImage = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1

@@ -12,9 +12,10 @@ h1 {
   color: lightblue;
 }
 
-.img {
+.carousel-image {
   width: 500px;
   height: 500px;
+  object-fit: contain;
 }
 
 .input-field {
