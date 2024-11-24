@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 
 function App() {
-  const [hintsRemaining, setHintsRemaining] = useState(3);
+  const [hintsRemaining, setHintsRemaining] = useState(2);
   const [playerWin, setPlayerWin] = useState(false);
 
   const decrementHints = () => {

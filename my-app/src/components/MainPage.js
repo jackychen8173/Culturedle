@@ -21,8 +21,11 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
       setPlayerWin(true);
     } else {
       decrementHints();
-      setImagesRevealed((prev) => Math.min(prev + 1, images.length));
-      setCurrentIndex(() => Math.min(imagesRevealed - 1, images.length));
+      setImagesRevealed((prev) => {
+        const newRevealed = Math.min(prev + 1, images.length); // Calculate the new revealed count
+        setCurrentIndex(newRevealed - 1); // Update currentIndex to the most recently revealed image
+        return newRevealed;
+      });
     }
   };
 
@@ -44,7 +47,7 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
     <div className="MainPage">
       <div className="Hints">
         <div className="carousel-container">
-          <button className="arrow left-arrow" onClick={handlePreviousImage} disabled={imagesRevealed <= 1}>
+          <button className="arrow left-arrow" onClick={handlePreviousImage} disabled={currentIndex == 0}>
             &lt; {/* Left arrow symbol */}
           </button>
           <img
