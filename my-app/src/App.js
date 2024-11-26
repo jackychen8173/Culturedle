@@ -2,13 +2,18 @@ import "./App.css";
 import MainPage from "./components/MainPage";
 import WinScreen from "./components/WinScreen"
 import CanadaMap from "./assets/CanadaMap.jpg";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchHello } from './api/api.js';
 
 
 
 function App() {
   const [hintsRemaining, setHintsRemaining] = useState(2);
   const [playerWin, setPlayerWin] = useState(false);
+
+  useEffect(() => {
+    fetchHello().then((msg) => console.log(msg));
+}, []);
 
   const decrementHints = () => {
     setHintsRemaining(Math.max(hintsRemaining - 1, 0))
