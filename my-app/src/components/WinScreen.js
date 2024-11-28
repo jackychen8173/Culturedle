@@ -1,4 +1,3 @@
-import "../App.css";
 import CanadaMap from "../assets/CanadaMap.jpg";
 import React, { useState } from 'react';
 
