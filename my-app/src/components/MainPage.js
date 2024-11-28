@@ -34,13 +34,13 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin, hints, mystery
   const [currentIndex, setCurrentIndex] = useState(0);
   const handlePreviousImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? hints.length - 1 : prevIndex - 1
     );
   };
 
   const handleNextImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === hints.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -57,7 +57,7 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin, hints, mystery
             alt={`Slide ${currentIndex + 1}`}
           /> */}
           {hints[currentIndex]}
-          <button className="arrow right-arrow" onClick={handleNextImage} disabled={currentIndex + 1 === imagesRevealed}>
+          <button className="arrow right-arrow" onClick={handleNextImage} disabled={currentIndex + 1 === hints.length}>
             &gt; {/* Right arrow symbol */}
           </button>
         </div>

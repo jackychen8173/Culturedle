@@ -13,6 +13,13 @@ app.get('/api/hello', (req, res) => {
     res.json({ message: 'Hello from the backend!' });
 });
 
+app.get('/api/countries', async (req, res) => {
+    const response = await fetch('https://restcountries.com/v3.1/all');
+    const countries = await response.json();  // Parse the response as JSON
+    res.json(countries);  // Send the JSON data as a response
+});
+
+
 app.listen(PORT, () => {
     console.log(`Backend running on http://localhost:${PORT}`);
 });
