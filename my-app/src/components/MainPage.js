@@ -2,10 +2,9 @@ import CanadaMap from "../assets/CanadaMap.jpg";
 import CanadaClue from "../assets/CanadaClue.jpeg";
 import CanadaRCMP from "../assets/CanadaRCMP.jpg";
 import React, { useState } from "react";
+import { getFlag } from "../api/api";
 
-const WIN_STRING = "CANADA";
-
-function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
+function MainPage({ hintsRemaining, decrementHints, setPlayerWin, hints, mysteryCountry, addHint }) {
   const [input, setInput] = useState("");
   const [imagesRevealed, setImagesRevealed] = useState(1);
 
@@ -17,15 +16,17 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
   };
 
   const onSubmit = () => {
-    if (input.toLowerCase() == WIN_STRING.toLowerCase()) {
+    if (input.toLowerCase() == mysteryCountry.toLowerCase()) {
       setPlayerWin(true);
     } else {
       decrementHints();
-      setImagesRevealed((prev) => {
-        const newRevealed = Math.min(prev + 1, images.length); // Calculate the new revealed count
-        setCurrentIndex(newRevealed - 1); // Update currentIndex to the most recently revealed image
-        return newRevealed;
-      });
+      getFlag(mysteryCountry).then((flagURL) => addHint("This is the flag of the country", flagURL));
+      setCurrentIndex(currentIndex + 1);
+      // setImagesRevealed((prev) => {
+      //   const newRevealed = Math.min(prev + 1, images.length); // Calculate the new revealed count
+      //   setCurrentIndex(newRevealed - 1); // Update currentIndex to the most recently revealed image
+      //   return newRevealed;
+      // });
     }
   };
 
@@ -33,13 +34,13 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const handlePreviousImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? hints.length - 1 : prevIndex - 1
     );
   };
 
   const handleNextImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === hints.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -50,12 +51,13 @@ function MainPage({ hintsRemaining, decrementHints, setPlayerWin }) {
           <button className="arrow left-arrow" onClick={handlePreviousImage} disabled={currentIndex == 0}>
             &lt; {/* Left arrow symbol */}
           </button>
-          <img
+          {/* <img
             className="carousel-image"
             src={images[currentIndex]}
             alt={`Slide ${currentIndex + 1}`}
-          />
-          <button className="arrow right-arrow" onClick={handleNextImage} disabled={currentIndex + 1 === imagesRevealed}>
+          /> */}
+          {hints[currentIndex]}
+          <button className="arrow right-arrow" onClick={handleNextImage} disabled={currentIndex + 1 === hints.length}>
             &gt; {/* Right arrow symbol */}
           </button>
         </div>
